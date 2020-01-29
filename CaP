@@ -1,0 +1,42 @@
+#!/bin/bash
+#  Bash Prompt Menu
+PS3='Choose screen capture size: '
+# PS3 means (Prompt String 3) a Shell prompts available for Linux. 
+# The PS3 prompt is useful in scripts that use the select command in order to select a value.
+options=("FullScreen" "Terminal-1280x508" "1280x720" "Quit")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "1280x720")
+            sleep 8
+            espeak "beep"
+            ffmpeg -y  -f alsa -ac 2 -i hw:1,0 -strict -2 -f x11grab -framerate 30 -video_size 1280x720 -i :0.0+0,36 \
+            -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast /home/jack/Desktop/ScreenCaptures/$(date +%s)_1280x720.mp4
+            break
+            ;;
+        "Terminal-1280x508")
+            sleep 8
+            espeak "beep"
+            ffmpeg -y  -f alsa -ac 2 -i hw:1,0 -strict -2 -f x11grab -framerate 30 -video_size 1280x508 -i :0.0+0,36 \
+            -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast /home/jack/Desktop/ScreenCaptures/$(date +%s)Terminal_1280x508.mp4
+            break
+            ;;            
+        "FullScreen")
+            sleep 8
+            espeak "beep"
+            ffmpeg -y  -f alsa -ac 2 -i hw:1,0 -strict -2 -f x11grab -framerate 30 -video_size 1360x768 -i :0.0 \
+            -c:v libx264 -pix_fmt yuv420p -qp 0 -preset ultrafast /home/jack/Desktop/ScreenCaptures/$(date +%s)_Fullscreen.mp4
+            break
+            ;;
+        "Quit")
+            break
+            ;;
+        *) echo invalid option;;
+    esac
+done
+ 
+
+echo "The last video created: "
+dirname=`ls -t /home/jack/Desktop/ScreenCaptures/*.mp4 | head -1`
+echo $dirname
+

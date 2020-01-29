@@ -1,0 +1,45 @@
+#!/bin/bash
+#  Bash Prompt Menu
+PS3='Please enter your choice: '
+options=("LBRY" "YouTube" "JupyterJones" "MyLinuxToyBox" "Philippines" "PWD" "Date-Time" "Time-PWD" "Quit")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "LBRY")
+            PS1="\[\e[33;42m\] LBRY \[\e[m\]Terminal: \\$ "
+            break
+            ;;
+        "YouTube")
+            PS1="\[\e[41m\]YouTube\[\e[m\]Videos: \\$ "
+            break
+            ;;
+        "JupyterJones")
+            PS1="\[\e[41m\]JupyterJones\[\e[m\]Videos: \\$ "
+            break
+            ;;
+        "MyLinuxToyBox")
+            export PS1="\[\e[37;41m\]YouTube: \[\e[m\]\[\e[37;40m\] \[\e[m\]\[\e[31;47m\]MylinuxToyBox Videos\[\e[m\]:\\$ "
+            break
+            ;;
+        "Philippines")
+            PS1="\[\e[37;41m\]YouTube: \[\e[m\]\[\e[37;40m\] \[\e[m\]\[\e[30;42m\]Philippine Videos\[\e[m\]:\\$ "
+            break
+            ;;
+        "PWD")
+            PS1="[\[\e[33;44m\]\W\[\e[m\]]: "
+            break
+            ;;
+        "Date-Time")
+            PS1="\[\e[31m\]\d\[\e[m\] \t \\$ "
+            break
+            ;;
+       "Time-PWD")
+            PS1="\[\e[30;47m\]\T\[\e[m\]  \[\e[41m\]\W\[\e[m\]\[\e[33m\]:\[\e[m\] "
+            break
+            ;;
+        "Quit")
+            break
+            ;;
+        *) echo invalid option;;
+    esac
+done
